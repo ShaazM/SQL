@@ -1,0 +1,17 @@
+-create a store database
+CREATE TABLE store (id INTEGER PRIMARY KEY, "item name" TEXT, price INTEGER, quantity INTEGER, weight INTEGER);
+
+
+INSERT INTO store VALUES (1, "backpack", 20, 5, 3);
+INSERT INTO store VALUES (2, "bike", 100, 20, 25);
+INSERT INTO store VALUES (3, "painting", 10000, 2, 20);
+INSERT INTO store VALUES (4, "phone", 1000, 25, 1.8);
+INSERT INTO store VALUES (5, "laptop", 1500, 10, 9);
+
+SELECT * FROM store;
+
+-display the database ordered by price
+SELECT id, "item name" FROM store ORDER BY price desc;
+
+-display the total sum cost of each product
+SELECT SUM(price) FROM store;
