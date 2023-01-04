@@ -1,0 +1,39 @@
+
+-- Using LEFT JOIN to combine the titlesinfo and people dataset to display title, director, showid and listing type
+SELECT 
+people.show_id,
+people.director,
+titles.title,
+titles.type
+FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
+LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+ON people.show_id = titles.show_id;
+
+
+-- Finds the total number of movie titles in the database (6131)
+SELECT COUNT(type) 
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE "type" = 'Movie'; 
+
+-- Retrieves when the most recent tv show/movie was added to the database
+SELECT max(date(date_added))
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
+
+-- Lists all Movies/TV Shows in alphabetical order
+SELECT title 
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+ORDER BY title ASC;
+
+-- Finds the director of the movie "Bright Star" (Jane Campion)
+SELECT 
+people.director
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
+LEFT JOIN  "CharlotteChaze/BreakIntoTech"."netflix_people" people
+ON titles.show_id = people.show_id
+WHERE titles.title = 'Bright Star';
+
+-- Retrieves the oldest movie in the database (Prelude to War (1942))
+SELECT title, release_year
+FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
+WHERE type ='Movie'
+ORDER BY release_year asc
+LIMIT 1;
