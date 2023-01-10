@@ -71,3 +71,39 @@ SELECT distinct Product, SUM(Quantity)
 FROM BIT_DB.FebSales
 WHERE location like '%Los Angeles%'
 GROUP BY Product;
+
+--Below I try to answer more advanced questions regarding the customer and order data
+
+--Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+SELECT location, SUM(Quantity)
+FROM BIT_DB.JanSales
+WHERE location like '%NY%'
+AND LENGTH(orderid) = 6 
+GROUP BY location
+HAVING SUM(Quantity) >= 3;
+
+--How many of each type of headphone were sold in February?
+SELECT Product, SUM(Quantity)
+FROM BIT_DB.FebSales
+WHERE Product like '%Headphone%'
+GROUP BY Product;
+
+--What was the average amount spent per account in February?
+SELECT SUM(Quantity*price)/COUNT(acctnum)
+FROM BIT_DB.FebSales
+LEFT JOIN BIT_DB.customers
+ON customers.order_id = FebSales.orderID
+WHERE LENGTH(orderid) = 6;
+
+--What was the average quantity of products purchased per account in February?
+SELECT SUM(Quantity)/COUNT(acctnum)
+FROM BIT_DB.FebSales
+LEFT JOIN BIT_DB.customers
+ON customers.order_id = FebSales.orderID
+WHERE LENGTH(orderid) = 6;
+
+--Which product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT Product, SUM(Quantity)*Price
+FROM BIT_DB.JanSales
+GROUP BY Product
+ORDER BY SUM(Quantity)*Price Desc LIMIT 1;
