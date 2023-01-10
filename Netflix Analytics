@@ -9,7 +9,6 @@ FROM "CharlotteChaze/BreakIntoTech"."netflix_people" people
 LEFT JOIN "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
 ON people.show_id = titles.show_id;
 
-
 -- Finds the total number of movie titles in the database (6131)
 SELECT COUNT(type) 
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" WHERE "type" = 'Movie'; 
